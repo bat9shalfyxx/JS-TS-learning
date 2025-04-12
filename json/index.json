@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Газпром",
+        "numberOfEmployees": 100000,
+        "rating": 0.2
+    },
+    {
+        "name": "VK",
+        "numberOfEmployees": 328190,
+        "rating": 0.001
+    }
+]
