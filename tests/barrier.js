@@ -121,4 +121,7 @@ function transactionWithoutUsingBarrier(fromAccount, amount, toAccount) {
 }
 
 // transactionByUsingBarrier(client1, 9000, client2);
-transactionWithoutUsingBarrier(client1, 9000, client2);
+transactionWithoutUsingBarrier(client1, 9000, client2);// 
+
+
+
