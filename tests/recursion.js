@@ -8,9 +8,9 @@ const fibonacci = (n) => {
     console.log(fibonacci(n - 1) + fibonacci(n - 2));
     return fibonacci(n - 1) + fibonacci(n - 2);
 };
-// console.log("^_^ " + fibonacci(10));
-// console.log("count: " + count);
-
+console.log("^_^ " + fibonacci(10));
+console.log("count: " + count);
+//1 2 3 5 8 13 21 34 55 89
 /////////////////////////////////factorial
 let count2 = 0;
 let factorial = (n) => {
@@ -44,7 +44,7 @@ function sumSalaries(department) {
         return sum;
     }
 }
-console.log(sumSalaries(company)); // 6700
+// console.log(sumSalaries(company)); // 6700
 
 /////////////////////////////////////////recursive structures:
 /////////////////////////////////CONNECTED LIST
@@ -54,7 +54,7 @@ list.next.next = { value: 3 };
 list.next.next.next = { value: 4 };
 list.next.next.next.next = null;
 list = { value: "0", next: list };
-console.log(list);
+// console.log(list);
 
 //         cd tests/algorithms
 //         node recursion

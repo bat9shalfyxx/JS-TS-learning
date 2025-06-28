@@ -55,8 +55,8 @@ let common: typeUser | typeUserInfo = {
 //
 //
 //////////////////////////////////////////////
-const days: ReadonlyArray<string> = ["Monday", "Tuesday", "Wensday", "Saturday", "Friday", "Суббота", "Sunday"];
-console.log(days[0]); //Вывод: "Monday"
+const dayss: ReadonlyArray<string> = ["Monday", "Tuesday", "Wensday", "Saturday", "Friday", "Суббота", "Sunday"];
+console.log(dayss[0]); //Вывод: "Monday"
 // days[0] = "Понедельник"; //Ошибка
 
 //
@@ -70,7 +70,7 @@ const newArray: TypeArray = ["Gon", true, [1, 2, 3]];
 //
 //
 ////////////////////////////////////////////////ПЕРЕГРУЗКИ ФУНКЦИЙ:
-const someFunc = (statemant: string, num?: number): string => {
+const someFunction = (statemant: string, num?: number): string => {
     return num ? `${statemant} ${num} раз` : `${statemant}`;
 };
 // console.log(someFunc("была бы твоя мать рядом, я бы пинал ее"));
@@ -95,7 +95,7 @@ function createPoint(x: number, y: number, z?: number): any {
 class World {
     city: string;
     population: number;
-    constructor(city: string, population: number, country: string = 'Mexiko') {
+    constructor(city: string, population: number, country: string = "Mexiko") {
         this.city = city;
         this.population = population;
         this.country = country;
@@ -193,7 +193,7 @@ interface IUser_ {
     role: EnumRoles;
     color: EnumColors;
 }
-const user: IUser_ = {
+const userr: IUser_ = {
     role: EnumRoles.ADMIN,
     color: EnumColors.white,
 };
@@ -224,4 +224,3 @@ let person: Person = { name: "Charlie" };
 let streetName = person.address?.street;
 // console.log(streetName); // Вывод: undefined
 
-///////////////////////////////////

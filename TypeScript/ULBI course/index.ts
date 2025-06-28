@@ -352,8 +352,8 @@ let narrowingFn2 = (arg: NarrowingType | INarrowing) => {
 
 ////instanceof narrowing:
 class Russians {
-    iq: bigint;
-    constructor(iq: bigint) {
+    iq: number;
+    constructor(iq: number) {
         this.iq = iq;
     }
 }
@@ -363,7 +363,7 @@ class Americans {
         this.iq = iq;
     }
 }
-const slav = new Russians(60000n);
+const slav = new Russians(900);
 const pendos = new Americans(17);
 const isSmartFn = (arg: Russians | Americans) => {
     if (arg instanceof Russians) {
@@ -403,7 +403,7 @@ class AmericanMan extends Human {
     }
 }
 type cheliks = RussianMan | AmericanMan;
-const defineThePeople = (arg: RussianMan | AmericanMan) => {
+const defineThePeople = (arg: cheliks) => {
     switch (arg.nation) {
         case "pendos":
             break;
@@ -412,5 +412,155 @@ const defineThePeople = (arg: RussianMan | AmericanMan) => {
     }
 };
 ////
+////
+////
+///////////////////////////////////////Type Guards:
+class Car {
+    oilCapacity: number;
+    maxSpeed: number; 
+    constructor(a: number, b: number) {
+        this.oilCapacity =  a;
+        this.maxSpeed = b;
+    }
+}
+class NotACar {
+    notOilCapacity: number;
+    notMaxSpeed: number;
+    constructor(a: number, b: number) {
+        this.notOilCapacity =  a;
+        this.notMaxSpeed = b;
+    }
+}
+const typeGuardFn = (arg: any): arg is Car => {
+    return 'oilCapacity' in arg && 'maxSpeed' in arg; 
+    return arg instanceof Car;
+}
+////
+interface ICar {
+    maxSpeed: number;
+    price: number;
+}
+interface ILada extends ICar {
+    type: 'lada';
+    age: bigint;
+}
+interface IBMW extends ICar {
+    type: 'bmw';
+    bmw: true;
+}
+
+const isLada = (arg: any): arg is ILada => {
+    return arg.type === 'lada';
+}
+const isBMW = (arg: any): arg is IBMW => {
+    return arg.type === 'bmw';
+}
+const defineTheCar = (arg: ILada | IBMW) => {
+    if(arg.type === 'bmw') {
+        return arg.bmw
+    } else if(arg.type === 'lada') {
+        return arg.age
+    }
+    return arg;
+}
+
+////
+////
+////
+///////////////////////////////////////Преобразование типов:
+interface SomeInterface {
+    prop1: number;
+    prop2: string;
+    requiredProp: boolean; // (*)
+}
+
+const someObject = {
+    prop1: 14,
+    prop2: 'string',
+    requiredProp: true, // (**)
+    randomProp:11, // (??)
+} as SomeInterface
+
+const someObject2 = <SomeInterface> {
+    prop1: 14,
+    prop2: 'string',
+    requiredProp: true, 
+}
+
+const someObject3 = {
+    prop1: 14,
+    prop2: 'string',
+    requiredProp: true, 
+} satisfies SomeInterface;
+const someObject4 = {
+    prop1: 14,
+    prop2: 'string',
+} // satisfies SomeInterface; // obj does not satisfy the expected type;
+
+const notSomeObject = { 
+    prop1: "NaN",
+    prop2: 'string'
+} // as SomeInterface
+
+const isSomeFunc = (arg:SomeInterface) => {
+    return (arg.prop1);
+}
+isSomeFunc(someObject);
+// isSomeFunc(notSomeObject); //Argument of type is not assignable to type 'SomeInterface'.
+
+// const str = '11122' as number; //Conversion of type 'string' to type 'number' may be a mistake
+const str2 = 'str' as unknown as number;
+
+////
+////Примеры допустимого использования as:
+interface IParsed {
+    some: boolean;
+    object: boolean;
+}
+const parsedJSON = JSON.parse('{"some": true, "object": true}');
+
+function JSONParse<T>(data: string): T {
+    return JSON.parse(data) as T;
+}
+// async function asyncParsing() {
+//     try {
+//         const data = await fetch('https://jsonplaceholder.typicode.com/todos/1', {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+//         const parsedData = await data.json(); 
+//         return  parsedData;
+//         //parsed data is any type now
+//     } catch(e) {
+//         console.log('Error: ', e);
+//         throw e;
+//     }
+// }
+// function JSONParse<T>(data: string): T {
+//     return JSON.parse(data) as T;
+// }
+// async function main() {
+//     const res = await asyncParsing()
+//     console.log(JSONParse(JSON.stringify(res)));
+// }
+// main()
+////
+const RolesToAssert = {
+    admin: 'ADMIN',
+    user: 'USER',
+    guest: 'GUEST'
+} as const;
+
+const rolesKeys = <T extends object>(data: T): Array<keyof T> => {
+    return Object.keys(data) as Array<keyof T>
+}
+const keys = rolesKeys(RolesToAssert);
+console.log(rolesKeys(RolesToAssert));
+console.log(Object.keys(RolesToAssert));
+
+////
+////  
 ////
 ///////////////////////////////////////

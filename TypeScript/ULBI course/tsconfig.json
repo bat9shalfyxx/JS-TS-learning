@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "target": "es5", // Или более новая версия, например "es6", "esnext"
+        "module": "commonjs",
+        "lib": ["es6", "dom"], // Добавляем "es6" для Promise и других ES6 фич
+        "jsx": "react",
+        "strict": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
