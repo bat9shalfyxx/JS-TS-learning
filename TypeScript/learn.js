@@ -128,3 +128,4 @@ const getLength = (text) => {
 let person = { name: "Charlie" };
 let streetName = person.address?.street;
 // console.log(streetName); // Вывод: undefined
+//////////////////////////////////////////////

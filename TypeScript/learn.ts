@@ -224,3 +224,4 @@ let person: Person = { name: "Charlie" };
 let streetName = person.address?.street;
 // console.log(streetName); // Вывод: undefined
 
+//////////////////////////////////////////////

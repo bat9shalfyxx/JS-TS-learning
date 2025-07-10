@@ -1,33 +1,19 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        if (typeof b !== "function" && b !== null)
-            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+"use strict";
 /////////////////////////////////////// Any
-var value0 = "str";
-var value1 = value0;
-var subType = { field1: "some", field2: 123, field3: [], field4: null };
-var superType = subType;
+let value0 = "str";
+let value1 = value0;
+let subType = { field1: "some", field2: 123, field3: [], field4: null };
+let superType = subType;
 // console.log(superType.field3); // Property 'field3' does not exist on type 'SuperType'
 // console.log(JSON.stringify(superType)); // {"field1":"some","field2":123,"field3":[],"field4":null}
 ////
 ////
 ////
 ///////////////////////////////////////unknown
-var validationFunc = function (data) {
+let validationFunc = (data) => {
     //let value: num = data; //Type 'unknown' is not assignable to type 'string'.
-    var value;
-    var value2;
+    let value;
+    let value2;
     if (typeof data === "string") {
         value2 = data;
         console.log(value2);
@@ -43,11 +29,11 @@ var validationFunc = function (data) {
 };
 // validationFunc([14]);
 //возможно:
-var val1;
+let val1;
 val1 = 1;
 val1 = "str";
 val1 = ["v", 1]; //массив any
-var neverVal;
+let neverVal;
 // let num: number = neverVal;
 // console.log(typeof num);
 var Values;
@@ -56,7 +42,7 @@ var Values;
     Values[Values["SECOND"] = 1] = "SECOND";
     Values[Values["THIRD"] = 2] = "THIRD";
 })(Values || (Values = {}));
-var traverse = function (val) {
+let traverse = (val) => {
     switch (val) {
         case Values.FIRST:
             console.log(1);
@@ -67,7 +53,7 @@ var traverse = function (val) {
         case Values.THIRD:
             return val;
         default:
-            var check = val;
+            const check = val;
             return val;
     }
 };
@@ -75,10 +61,10 @@ var traverse = function (val) {
 ////
 ////
 ///////////////////////////////////////void
-var someFunc = function (a) {
+let someFunc = (a) => {
     console.log(a);
 };
-var user = {
+const user = {
     isActive: true,
     nickname: "Godo",
     id: "321_111_001",
@@ -87,11 +73,11 @@ var user = {
         coordinates: [14, 24, 51, 12],
     },
 };
-var adress = {
+const adress = {
     coordinates: [1],
     // newProperty: true, //Object literal may only specify known properties, and 'newProperty' does not exist in type 'IAddress'.
 };
-var userArr = [
+const userArr = [
     {
         isActive: true,
         nickname: "Godo",
@@ -109,33 +95,33 @@ var userArr = [
         },
     },
 ];
-var days = ["Friday", "Saturday", "Thursday"];
-var num = 32;
-var wtf = { 1: "12" };
-var day1 = "Monday";
-var day2 = "Monday";
-var dayObj = {
+const days = ["Friday", "Saturday", "Thursday"];
+const num = 32;
+const wtf = { 1: "12" };
+const day1 = "Monday";
+let day2 = "Monday";
+const dayObj = {
     day: "Wednesday",
 };
-var dayObj2 = {
+const dayObj2 = {
     day: "Wednesday",
 };
-var whatAWonderfullDay = function (day) {
-    console.log("What a wonderfull ".concat(day, "!"));
+const whatAWonderfullDay = (day) => {
+    console.log(`What a wonderfull ${day}!`);
 };
-var яЙошкарОловчанин = "Your city is Йошкар-Ола";
-var implementationOfExampleAbove = "Можно любые значения прокидывать: true";
-var readonlyExample = {
+let яЙошкарОловчанин = "Your city is Йошкар-Ола";
+const implementationOfExampleAbove = "Можно любые значения прокидывать: true";
+let readonlyExample = {
     field1: "123",
 };
-var response = {
+const response = {
     status: "success",
     requestId: "22",
     data: {
         title: "Some article.",
     },
 };
-var newResponse = {
+const newResponse = {
     status: "success",
     requestId: {
         requestId: 14,
@@ -144,7 +130,7 @@ var newResponse = {
         title: "Some title",
     },
 };
-var treeNode = {
+const treeNode = {
     id: "1",
     value: {
         username: "Godo",
@@ -164,30 +150,30 @@ function genericFn(arg) {
     return arg;
 }
 genericFn(14);
-var arrowGenericFn = function (arg) {
+const arrowGenericFn = (arg) => {
     return arg;
 };
 arrowGenericFn(treeNode);
-var constrainedFn = function (arg) {
+let constrainedFn = (arg) => {
     return arg;
 };
 // constrainedFn<string>("sds"); // Type 'string' does not satisfy the constraint '{ id: string; userName: string; }'.
 constrainedFn({ id: "q", userName: "Godo", data: [] });
-var defaultGenericValueFn = function (arg) {
+let defaultGenericValueFn = (arg) => {
     console.log(typeof arg);
 };
-var impObj = {
+const impObj = {
     // id: 1, //Type 'number' is not assignable to type 'string'.
     id: "1k",
     nickname: "godo",
 };
 // const isArray: IsArray<string> = true; //Type 'true' is not assignable to type 'false'.
 // const isArray2: IsArray<string[]> = false; //Type 'false' is not assignable to type 'true'.
-var isArray3 = true;
-var childeOf = {
+const isArray3 = true;
+const childeOf = {
     id: 1,
 };
-var notAChildeOf = {
+const notAChildeOf = {
     random: null,
 };
 ////btw больше 100 строк на одни женерики ушло О_о
@@ -195,7 +181,7 @@ var notAChildeOf = {
 ////
 ///////////////////////////////////////Сужение типов:
 ///typeof type guards:
-var narrowingFn = function (arg) {
+let narrowingFn = (arg) => {
     if (typeof arg === "string") {
         return arg.toLowerCase();
     }
@@ -204,7 +190,7 @@ var narrowingFn = function (arg) {
     }
     return arg; //У null нет методов т.к. у него нет "wrapper object"
 };
-var narrowingFn2 = function (arg) {
+let narrowingFn2 = (arg) => {
     if ("id" in arg) {
         return arg.id;
     }
@@ -214,21 +200,21 @@ var narrowingFn2 = function (arg) {
     return arg;
 };
 ////instanceof narrowing:
-var Russians = /** @class */ (function () {
-    function Russians(iq) {
+class Russians {
+    iq;
+    constructor(iq) {
         this.iq = iq;
     }
-    return Russians;
-}());
-var Americans = /** @class */ (function () {
-    function Americans(iq) {
+}
+class Americans {
+    iq;
+    constructor(iq) {
         this.iq = iq;
     }
-    return Americans;
-}());
-var slav = new Russians(900);
-var pendos = new Americans(17);
-var isSmartFn = function (arg) {
+}
+const slav = new Russians(900);
+const pendos = new Americans(17);
+const isSmartFn = (arg) => {
     if (arg instanceof Russians) {
         console.log("ur iq is unbelievably high...");
     }
@@ -236,34 +222,33 @@ var isSmartFn = function (arg) {
         console.log("u're as dummy as fish.");
     }
 };
-var Human = /** @class */ (function () {
-    function Human(sex, color) {
+class Human {
+    sex;
+    color;
+    constructor(sex, color) {
         this.sex = sex;
         this.color = color;
     }
-    return Human;
-}());
-var RussianMan = /** @class */ (function (_super) {
-    __extends(RussianMan, _super);
-    function RussianMan(sex, color, iq, nation) {
-        var _this = _super.call(this, sex, color) || this;
-        _this.nation = nation;
-        _this.iq = iq;
-        return _this;
+}
+class RussianMan extends Human {
+    iq;
+    nation; //(*)
+    constructor(sex, color, iq, nation) {
+        super(sex, color);
+        this.nation = nation;
+        this.iq = iq;
     }
-    return RussianMan;
-}(Human));
-var AmericanMan = /** @class */ (function (_super) {
-    __extends(AmericanMan, _super);
-    function AmericanMan(sex, color, iq, nation) {
-        var _this = _super.call(this, sex, color) || this;
-        _this.nation = nation;
-        _this.iq = iq;
-        return _this;
+}
+class AmericanMan extends Human {
+    iq;
+    nation; //(*)
+    constructor(sex, color, iq, nation) {
+        super(sex, color);
+        this.nation = nation;
+        this.iq = iq;
     }
-    return AmericanMan;
-}(Human));
-var defineThePeople = function (arg) {
+}
+const defineThePeople = (arg) => {
     switch (arg.nation) {
         case "pendos":
             break;
@@ -275,31 +260,33 @@ var defineThePeople = function (arg) {
 ////
 ////
 ///////////////////////////////////////Type Guards:
-var Car = /** @class */ (function () {
-    function Car(a, b) {
+class Car {
+    oilCapacity;
+    maxSpeed;
+    constructor(a, b) {
         this.oilCapacity = a;
         this.maxSpeed = b;
     }
-    return Car;
-}());
-var NotACar = /** @class */ (function () {
-    function NotACar(a, b) {
+}
+class NotACar {
+    notOilCapacity;
+    notMaxSpeed;
+    constructor(a, b) {
         this.notOilCapacity = a;
         this.notMaxSpeed = b;
     }
-    return NotACar;
-}());
-var typeGuardFn = function (arg) {
+}
+const typeGuardFn = (arg) => {
     return 'oilCapacity' in arg && 'maxSpeed' in arg;
     return arg instanceof Car;
 };
-var isLada = function (arg) {
+const isLada = (arg) => {
     return arg.type === 'lada';
 };
-var isBMW = function (arg) {
+const isBMW = (arg) => {
     return arg.type === 'bmw';
 };
-var defineTheCar = function (arg) {
+const defineTheCar = (arg) => {
     if (arg.type === 'bmw') {
         return arg.bmw;
     }
@@ -308,38 +295,38 @@ var defineTheCar = function (arg) {
     }
     return arg;
 };
-var someObject = {
+const someObject = {
     prop1: 14,
     prop2: 'string',
     requiredProp: true, // (**)
     randomProp: 11, // (??)
 };
-var someObject2 = {
+const someObject2 = {
     prop1: 14,
     prop2: 'string',
     requiredProp: true,
 };
-var someObject3 = {
+const someObject3 = {
     prop1: 14,
     prop2: 'string',
     requiredProp: true,
 };
-var someObject4 = {
+const someObject4 = {
     prop1: 14,
     prop2: 'string',
 }; // satisfies SomeInterface; // obj does not satisfy the expected type;
-var notSomeObject = {
+const notSomeObject = {
     prop1: "NaN",
     prop2: 'string'
 }; // as SomeInterface
-var isSomeFunc = function (arg) {
+const isSomeFunc = (arg) => {
     return (arg.prop1);
 };
 isSomeFunc(someObject);
 // isSomeFunc(notSomeObject); //Argument of type is not assignable to type 'SomeInterface'.
 // const str = '11122' as number; //Conversion of type 'string' to type 'number' may be a mistake
-var str2 = 'str';
-var parsedJSON = JSON.parse('{"some": true, "object": true}');
+const str2 = 'str';
+const parsedJSON = JSON.parse('{"some": true, "object": true}');
 function JSONParse(data) {
     return JSON.parse(data);
 }
@@ -368,14 +355,15 @@ function JSONParse(data) {
 // }
 // main()
 ////
-var RolesToAssert = {
+const RolesToAssert = {
     admin: 'ADMIN',
     user: 'USER',
     guest: 'GUEST'
 };
-var rolesKeys = function (data) {
+const rolesKeys = (data) => {
     return Object.keys(data);
 };
+const keys = rolesKeys(RolesToAssert);
 console.log(rolesKeys(RolesToAssert));
 console.log(Object.keys(RolesToAssert));
 ////

@@ -556,7 +556,7 @@ const RolesToAssert = {
 const rolesKeys = <T extends object>(data: T): Array<keyof T> => {
     return Object.keys(data) as Array<keyof T>
 }
-const keys = rolesKeys(RolesToAssert);
+const keys = rolesKeys(RolesToAssert);  
 console.log(rolesKeys(RolesToAssert));
 console.log(Object.keys(RolesToAssert));
 
