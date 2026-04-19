@@ -1,64 +1,68 @@
 ///СИНХРОННЫЕ
-setTimeout(() => {
-    console.log("Выведено после начала работы цикла");
-}, 1500);
+// setTimeout(() => {
+//     console.log("Выведено после начала работы цикла");
+// }, 1500);
 
-for (let i = 0; i < 10000; i++) {
-    console.log(`${i}`);
+// for (let i = 0; i < 10000; i++) {
+//     console.log(`${i}`);
+// }
+
+const syncTask = (message, timeToSet) => {
+    setTimeout(() => null, timeToSet);
+    return message;
 }
 
-// function syncAwaitProgram() {
-//     console.log("Начало выполнения программы");
-//     let result1 = syncTask("Синхронная задача 1", 2000);
-//     console.log(`Результат 1: ${result1}`);
-//     let result2 = syncTask("Синхронная задача 2", 1000);
-//     console.log(`Результат 2: ${result2}`);
-//     console.log("Конец выполнения программы");
-// }
-// syncAwaitProgram();
+function syncAwaitProgram() {
+    console.log("Начало выполнения программы");
+    let result1 = syncTask("Синхронная задача 1", 2000);
+    console.log(`Результат 1: ${result1}`);
+    let result2 = syncTask("Синхронная задача 2", 1000);
+    console.log(`Результат 2: ${result2}`);
+    console.log("Конец выполнения программы");
+}
+syncAwaitProgram();
 
-// ///АСИНХРОННЫЕ
-// const test = new Promise((resolve, reject) => {
+///АСИНХРОННЫЕ
+// const test = new Promise((resolve) => {
 //     setTimeout(() => {
 //         console.log("Выведено до начала работы цикла");
 //         resolve();
 //     }, 6000);
-// });
-// test.then(() => {
+// }).then(() => {
 //     for (let i = 0; i < 200; i++) {
 //         console.log(i);
 //     }
 // });
 
-// async function asyncAwaitProgram() {
-//     console.log("Начало выполнения программы");
+async function asyncAwaitProgram() {
+    console.log("Начало выполнения программы");
 
-//     let result1 = await promiseTask("Promise задача 1", 2000);
-//     console.log(`Результат 1: ${result1}`);
+    let result1 = await promiseTask("Promise задача 1", 2000);
+    console.log(`Результат 1: ${result1}`);
 
-//     let result2 = await promiseTask("Promise задача 2", 1000);
-//     console.log(`Результат 2: ${result2}`);
+    let result2 = await promiseTask("Promise задача 2", 1000);
+    console.log(`Результат 2: ${result2}`);
 
-//     console.log("Конец выполнения программы");
-// }
-// asyncAwaitProgram();
-//
-//
-// исправление асинхронности
-//function syncTest() {
-//     console.log("Начало синхронной задачи");
+    console.log("Конец выполнения программы");
+}
+asyncAwaitProgram();
 
-//     const startTime = Date.now();
-//     while (Date.now() - startTime < 6000) {
-//         // Пустой цикл - блокировка
-//     }
-//     console.log("спустя 6000 миллисекунд");
 
-//     for (let i = 0; i < 200; i++) {
-//         console.log(i);
-//     }
-//      console.log("Конец синхронной задачи");
-// }
+// исправление асинхронностиs
+function syncTest() {
+    console.log("Начало синхронной задачи");
+
+    const startTime = Date.now();
+    while (Date.now() - startTime < 6000) {
+        // Пустой цикл - блокировка
+    }
+    console.log("спустя 6000 миллисекунд");
+
+    for (let i = 0; i < 200; i++) {
+        console.log(i);
+    }
+     console.log("Конец синхронной задачи");
+}
 // syncTest();
 //
 //

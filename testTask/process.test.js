@@ -8,10 +8,10 @@ const processReturns = (store, order) => {
         return false
     }
 }
+
 for(let i = 0; i < testCasesArray.length; i++) {
-    test(`Проверка кейса №${i}:`, () => {
-        expect(processReturns(testCasesArray[i].store, testCasesArray[i].order))
-        .toBe(testCasesArray[i].isPossible)
-    })
+    test(`Проверка кейса №${i + 1}:`, () => {
+        expect(processReturns(testCasesArray[i].store, testCasesArray[i].order)).toBe(testCasesArray[i].isPossible);
+    });
 }
 

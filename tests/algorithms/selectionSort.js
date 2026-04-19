@@ -16,5 +16,5 @@ let selectionSort = (arr) => {
     return arr;
 };
 console.log(selectionSort(array));
-console.log(selectionSort(counter));
+console.log(counter);
 //      node selectionSort

@@ -6,15 +6,23 @@ const process = (store, order) => {
         mismatches: 0,
     };
 
+    const findItemBySize = (entity, size) => {
+        return entity.find((item) => item.size === size && item.quantity);
+    };
+
+    const getPreferredSizeByComparing = (preferredSize, size1, size2) => {
+        return preferredSize === size1 ? size2 : size1;
+    };
+
     for (const orderItem of order) {
-        let assinedSize;
+        let assignedSize;
 
         if (orderItem.size.length === 1) {
             const size = orderItem.size[0];
-            const storeItem = storeCopy.find((item) => item.size === size && item.quantity > 0);
+            const storeItem = findItemBySize(storeCopy, size);
 
             if (storeItem) {
-                assinedSize = size;
+                assignedSize = size;
                 storeItem.quantity--;
             }
         } else {
@@ -28,25 +36,32 @@ const process = (store, order) => {
                 preferredSize = size2;
             }
 
-            const storeItemPreferred = storeCopy.find((item) => item.size === preferredSize && item.quantity);
+            const willCauseConflict = order.slice(order.indexOf(orderItem) + 1).some((nextOrderItem) => {
+                return (
+                    nextOrderItem.size.includes(preferredSize) &&
+                    !nextOrderItem.size.includes(getPreferredSizeByComparing(preferredSize, size1, size2))
+                );
+            });
 
-            if (storeItemPreferred) {
-                assinedSize = preferredSize;
-                storeItemPreferred.quantity--;
+            const prefferedItem = findItemBySize(storeCopy, preferredSize);
+
+            if (prefferedItem && !willCauseConflict) {
+                assignedSize = preferredSize;
+                prefferedItem.quantity--;
             } else {
-                const otherSize = preferredSize === size1 ? size2 : size1;
-                const storeItemOther = storeCopy.find((item) => item.size === otherSize && item.quantity);
+                const otherSize = getPreferredSizeByComparing(preferredSize, size1, size2);
+                const alternativeItem = findItemBySize(storeCopy, otherSize);
 
-                if (storeItemOther) {
-                    assinedSize = otherSize;
-                    storeItemOther.quantity--;
+                if (alternativeItem) {
+                    assignedSize = otherSize;
+                    alternativeItem.quantity--;
                     Result.mismatches++;
                 }
             }
         }
 
-        if (assinedSize) {
-            Result.assignment.push({ id: orderItem.id, size: assinedSize });
+        if (assignedSize) {
+            Result.assignment.push({ id: orderItem.id, size: assignedSize });
         } else {
             return false;
         }
@@ -68,4 +83,7 @@ const process = (store, order) => {
     return Result;
 };
 
-module.exports = process;
+// module.exports = process;
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(arr.slice(arr.indexOf(4) + 1).some((item) => item === 6));
