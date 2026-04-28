@@ -28,39 +28,40 @@ func();
 // console.log(process.version)
 
 /* -----------------------------> */
-
-for (var i = 0; i < 5; i++) {
-    setTimeout(() => {
-        // console.log(i);
-    }, 500)
-}
-// > 5 5 5 5 5
-
-//1st solution:
-for (let i = 0; i < 5; i++) {
-    setTimeout(() => {
-        // console.log(i);
-    }, 500)
-}
-// > 0 1 2 3 4
-
-//2nd solution:
-for (let i = 0; i < 5; i++) {
-    setTimeout((j) => {
-        // console.log(j);
-    }, 500, i)
-}
-// > 0 1 2 3 4
-
-//3rd solution:
-for (let i = 0; i < 5; i++) {
-    ((j) => {
+const delayedVar = () => {
+    for (var i = 0; i < 5; i++) {
         setTimeout(() => {
-            // console.log(j);
+            // console.log(i);
         }, 500)
-    })(i)
-}(i)
-// > 0 1 2 3 4
+    }
+    // > 5 5 5 5 5
+    
+    //1st solution:
+    for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+            // console.log(i);
+        }, 500)
+    }
+    // > 0 1 2 3 4
+    
+    //2nd solution:
+    for (let i = 0; i < 5; i++) {
+        setTimeout((j) => {
+            // console.log(j);
+        }, 500, i)
+    }
+    // > 0 1 2 3 4
+    
+    //3rd solution:
+    for (let i = 0; i < 5; i++) {
+        ((j) => {
+            setTimeout(() => {
+                // console.log(j);
+            }, 500)
+        })(i)
+    }(i)
+    // > 0 1 2 3 4
+}
 
 /* -----------------------------> object's descriptors */
 
@@ -142,31 +143,106 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
             subArr: []
         }
     }
-
+    
     const shallowCopy = {...obj};
     const shallowCopy2 = Object.assign({}, obj);
-
+    
     const deepCopy = JSON.parse(JSON.stringify(obj));
     const deepCopy2 = structuredClone(obj);
-
+    
     obj.subObject.z = -98
     // console.log(deepCopy.subObject) > { x: 1, y: 13 }
     // console.log(deepCopy2.subObject) > { x: 1, y: 13 }
-
+    
     // ---> own deep copying function:
     const deepCopyFunc = (value) => {
         if (typeof value !== "object" || value === null) {
             return value;
         }
-
+        
         if (Array.isArray(value)) {
             return value.map(item => deepCopyFunc(item));
         }
-
+        
         return Object.fromEntries(Object.entries(value).map(([key, value]) => [key, deepCopyFunc(value)]));
     }
-
+    
     const deepCopyObj = deepCopyFunc(obj);
     obj.subObject.subArr.push(1)
-    console.log(deepCopyObj);
+    // console.log(deepCopyObj);
+}
+
+/* -----------------------------> */
+
+{
+    // ---> Boolean
+    let flag = new Boolean(false);
+    if (flag) console.log(`${flag} is object > always truthy`);
+    
+    // console.log(flag);
+    // console.log(typeof flag);
+    // console.log(typeof flag.valueOf());
+    // console.log(flag == false);
+    // console.log(flag === false);
+    // console.log(flag === false);
+    // console.log(!!!!!!!!!!!!!!!!!false);
+    
+    // ---> Symbol
+    const uniqueKey = Symbol('key');
+    const uniqueKey2 = Symbol('key');
+
+    // console.log(uniqueKey.description);
+    // console.log(uniqueKey === uniqueKey2);
+    // console.log(uniqueKey.valueOf());
+    // console.log(uniqueKey.valueOf() === uniqueKey2.valueOf());
+    // console.log(typeof uniqueKey);
+    // console.log(typeof uniqueKey.valueOf());
+}
+
+/* -----------------------------> const vs let in terms of optimization */ 
+{
+    const ITERATIONS = 10_000_000_000;
+    
+    const constIterations = () => {
+        const initialObj = {value: 4};
+        let sum = 0;
+        
+        for (let i = 0; i < ITERATIONS; i++) {
+            sum += initialObj.value;
+        }
+        
+        return sum;
+    };
+    
+    
+    
+    
+    const letIterations = () => {
+        let initialObj = {value: 4};
+        let sum = 0;
+        
+        for (let i = 0; i < ITERATIONS; i++) {
+            sum += initialObj.value;
+        }
+        
+        return sum;
+    };
+    
+    
+    (() => {
+        const warmup = () => {
+            for (let i = 0; i < 10000; i++) {
+                letIterations();
+                constIterations();
+            }
+        }
+    })();
+    
+    const start1 = Date.now();
+    constIterations();
+    console.log(`${Date.now()  - start1}ms`)
+    
+    const start2 = Date.now();
+    letIterations();
+    console.log(`${Date.now()  - start2}ms`)
 }
