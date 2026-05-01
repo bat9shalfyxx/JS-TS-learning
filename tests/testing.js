@@ -175,28 +175,61 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
 /* -----------------------------> */
 
 {
+    // ---> WeakMap | WeakSet | Garbage Collector in action
+    const wSet = new WeakSet();
+    const wMap = new WeakMap();
+
+    let weakSetObject = {x: 1, y:-1};
+    let weakMapObject = {x: -1, y:1};
+    
+    wSet.add(weakSetObject);
+    wMap.set(weakMapObject, true);
+
+    // console.log(wSet.has(weakSetObject)); //> true
+    // console.log(wMap.has(weakMapObject)); //> true
+    
+    weakMapObject = null;
+    weakSetObject = null;
+    
+    // console.log(wSet.has(weakSetObject)); //> false
+    // console.log(wMap.has(weakMapObject)); //> false
+    
+
     // ---> Boolean
     let flag = new Boolean(false);
-    if (flag) console.log(`${flag} is object > always truthy`);
+    // if (flag) console.log(`${flag} is object > always truthy`);
     
     // console.log(flag);
     // console.log(typeof flag);
     // console.log(typeof flag.valueOf());
     // console.log(flag == false);
     // console.log(flag === false);
-    // console.log(flag === false);
-    // console.log(!!!!!!!!!!!!!!!!!false);
+    // console.log(flag.valueOf() === false);
+    // console.log(!!!!!!!!!!!!!!!!flag);
     
+
     // ---> Symbol
     const uniqueKey = Symbol('key');
     const uniqueKey2 = Symbol('key');
-
+    
     // console.log(uniqueKey.description);
     // console.log(uniqueKey === uniqueKey2);
     // console.log(uniqueKey.valueOf());
     // console.log(uniqueKey.valueOf() === uniqueKey2.valueOf());
     // console.log(typeof uniqueKey);
     // console.log(typeof uniqueKey.valueOf());
+    
+    
+    // ---> RegExp
+    const validEmail = "shokirovttt192@gmail.com";
+    const invalidEmail = "shokirovtttgmail.com.@";
+    const EMAIL_VALIDATOR = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    console.log(EMAIL_VALIDATOR.constructor);
+    console.log(EMAIL_VALIDATOR.test(validEmail));
+    console.log(EMAIL_VALIDATOR.test(invalidEmail));
+    console.log(invalidEmail.match(EMAIL_VALIDATOR));
+    console.log(validEmail.match(/@gmail.com/));
 }
 
 /* -----------------------------> const vs let in terms of optimization */ 
@@ -214,9 +247,6 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
         return sum;
     };
     
-    
-    
-    
     const letIterations = () => {
         let initialObj = {value: 4};
         let sum = 0;
@@ -228,21 +258,19 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
         return sum;
     };
     
-    
-    (() => {
-        const warmup = () => {
-            for (let i = 0; i < 10000; i++) {
-                letIterations();
-                constIterations();
-            }
+    const warmup = () => {
+        for (let i = 0; i < 10000; i++) {
+            letIterations();
+            constIterations();
         }
-    })();
+    }
+    // warmup();
+
+    // const start1 = Date.now();
+    // constIterations();
+    // console.log(`${Date.now()  - start1}ms`)
     
-    const start1 = Date.now();
-    constIterations();
-    console.log(`${Date.now()  - start1}ms`)
-    
-    const start2 = Date.now();
-    letIterations();
-    console.log(`${Date.now()  - start2}ms`)
+    // const start2 = Date.now();
+    // letIterations();
+    // console.log(`${Date.now()  - start2}ms`)
 }
