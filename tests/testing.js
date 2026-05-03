@@ -225,11 +225,11 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
     const invalidEmail = "shokirovtttgmail.com.@";
     const EMAIL_VALIDATOR = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    console.log(EMAIL_VALIDATOR.constructor);
-    console.log(EMAIL_VALIDATOR.test(validEmail));
-    console.log(EMAIL_VALIDATOR.test(invalidEmail));
-    console.log(invalidEmail.match(EMAIL_VALIDATOR));
-    console.log(validEmail.match(/@gmail.com/));
+    // console.log(EMAIL_VALIDATOR.constructor);
+    // console.log(EMAIL_VALIDATOR.test(validEmail));
+    // console.log(EMAIL_VALIDATOR.test(invalidEmail));
+    // console.log(invalidEmail.match(EMAIL_VALIDATOR));
+    // console.log(validEmail.match(/@gmail.com/));
 }
 
 /* -----------------------------> const vs let in terms of optimization */ 
@@ -265,7 +265,7 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
         }
     }
     // warmup();
-
+    
     // const start1 = Date.now();
     // constIterations();
     // console.log(`${Date.now()  - start1}ms`)
@@ -273,4 +273,39 @@ Object.freeze(obj4) //forbids to extend, delete, or change existing properties
     // const start2 = Date.now();
     // letIterations();
     // console.log(`${Date.now()  - start2}ms`)
+}
+
+
+/* -----------------------------> strict srtict comparison */
+{
+    // console.log(NaN == NaN); // > false
+    // console.log(0 == -0); // > true
+    
+    // console.log(Object.is(NaN == NaN)); // > true
+    // console.log(Object.is(0 == -0)); // > false
+    
+    
+    // console.log(13121 / 0)
+    // console.log(typeof 13121 / 0)
+    // console.log(typeof 13121 / false)
+    // console.log(typeof NaN)
+    // console.log(Number.isNaN(typeof 1231 / 0)); // > true
+}
+
+
+/* -----------------------------> closures */
+{
+    const counter = () => {
+        let counter = 0;
+        
+        return () => ++counter;
+    }
+
+    const counter1 = counter();
+    console.log(counter1()); // 1
+    console.log(counter1()); // 2
+    console.log(counter1()); // 3
+
+    const counter2 = counter();
+    console.log(counter2()); // 1
 }
